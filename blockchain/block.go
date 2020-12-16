@@ -14,7 +14,7 @@ type Block struct {
 
 // BlockChain struct for this implementation
 type BlockChain struct {
-	blocks []*Block
+	Blocks []*Block
 }
 
 // DeriveHash method to calculate block's hashes
@@ -33,9 +33,9 @@ func CreateBlock(data string, PrevHash []byte) *Block {
 
 // AddBlock call CreateBlock and append this on BlockChain
 func (chain *BlockChain) AddBlock(data string) {
-	prevBlock := chain.blocks[len(chain.blocks)-1]
+	prevBlock := chain.Blocks[len(chain.Blocks)-1]
 	new := CreateBlock(data, prevBlock.Hash)
-	chain.blocks = append(chain.blocks, new)
+	chain.Blocks = append(chain.Blocks, new)
 
 }
 
