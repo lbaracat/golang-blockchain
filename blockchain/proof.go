@@ -9,19 +9,8 @@ import (
 	"math/big"
 )
 
-// Take the data from the block
-
-// create a counter (nonce) which starts at 0
-
-// create a hash of the data plus the counter
-
-// check the hash to see if it meets a set of requirements
-
-// Requirements:
-// The first few bytes must contain 0s
-
 // Difficulty defined in this blockchain for POW - proof of work
-const Difficulty = 12
+const Difficulty = 18
 
 // ProofOfWork struct
 type ProofOfWork struct {
@@ -44,7 +33,7 @@ func (pow *ProofOfWork) InitData(nonce int) []byte {
 	data := bytes.Join(
 		[][]byte{
 			pow.Block.PrevHash,
-			pow.Block.Data,
+			pow.Block.HashTransactions(),
 			ToHex(int64(nonce)),
 			ToHex(int64(Difficulty)),
 		},
