@@ -36,9 +36,9 @@ func (cli *CommandLine) printChain() {
 
 	for {
 		block := iter.Next()
-		fmt.Printf("Previous Hash: %x\n", block.PrevHash)
-		fmt.Printf("Hash: %x\n", block.Hash)
-		fmt.Printf("Nonce: %d\n", block.Nonce)
+		fmt.Printf("     Hash: %x\n", block.Hash)
+		fmt.Printf("Prev Hash: %x\n", block.PrevHash)
+		fmt.Printf("    Nonce: %d\n", block.Nonce)
 
 		pow := blockchain.NewProof(block)
 
@@ -77,7 +77,7 @@ func (cli *CommandLine) send(from, to string, amount int) {
 
 	tx := blockchain.NewTransaction(from, to, amount, chain)
 	chain.AddBlock([]*blockchain.Transaction{tx})
-	fmt.Println("Success!")
+	fmt.Println("\nSuccess!")
 }
 
 func (cli *CommandLine) run() {

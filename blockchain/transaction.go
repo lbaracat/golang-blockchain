@@ -9,7 +9,7 @@ import (
 	"log"
 )
 
-const coinbase int = 100
+const coinbase int = 1000000
 
 type Transaction struct {
 	ID      []byte

@@ -51,7 +51,7 @@ func InitBlockChain(address string) *BlockChain {
 	err = db.Update(func(txn *badger.Txn) error {
 		cbtx := CoinbaseTx(address, genesisData)
 		genesis := Genesis(cbtx)
-		fmt.Println("Genesis crated")
+		fmt.Println("\n//Genesis created")
 		err = txn.Set(genesis.Hash, genesis.Serialize())
 		Handle(err)
 		err = txn.Set([]byte("lh"), genesis.Hash)
@@ -75,7 +75,35 @@ func ContinueBlockChain(address string) *BlockChain {
 
 	var lastHash []byte
 
-	opts := badger.DefaultOptions(dbPath)
+	opts := badger.Options{
+		Dir:                     "",
+		ValueDir:                "",
+		SyncWrites:              false,
+		TableLoadingMode:        0,
+		ValueLogLoadingMode:     0,
+		NumVersionsToKeep:       0,
+		ReadOnly:                false,
+		Truncate:                false,
+		Logger:                  nil,
+		EventLogging:            false,
+		MaxTableSize:            0,
+		LevelSizeMultiplier:     0,
+		MaxLevels:               0,
+		ValueThreshold:          0,
+		NumMemtables:            0,
+		NumLevelZeroTables:      0,
+		NumLevelZeroTablesStall: 0,
+		LevelOneSize:            0,
+		ValueLogFileSize:        0,
+		ValueLogMaxEntries:      0,
+		NumCompactors:           0,
+		CompactL0OnClose:        false,
+		LogRotatesToFlush:       0,
+		VerifyValueChecksum:     false,
+		BypassLockGuard:         false,
+	}
+	opts = badger.DefaultOptions(dbPath)
+	opts.Logger = nil // ============================== DISABLE BADGER DEBUG INFO
 
 	db, err := badger.Open(opts)
 	Handle(err)
